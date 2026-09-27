@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Snehal ❤️</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <button class="logo" type="button" onclick="openSnehalPhoto()" aria-label="Open Snehal's photo full screen">For Snehal ❤️</button>
+        <div>
+            <a href="#home">Home</a>
+            <a href="#story">Story</a>
+            <a href="#memories">Memories</a>
+            <a href="#bestpal">💕 Best Pal</a>
+            <a href="#letter">Letter</a>
+            <a href="#heart">❤️ For You</a>
+            <a href="#surprise">Surprise</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="small-title">A LITTLE CORNER OF OUR STORY</div>
+            <h1>Happy Birthday <span>Snehal</span> ❤️</h1>
+            <p>Today is your day, my love. ❤️
+I made this little place just for you — my love, my future wife, my forever. 💍❤️</p>
+            <a href="#memories" class="scroll-btn">See Our Memories ↓</a>
+        </div>
+    </section>
+
+    <section class="birthday">
+        <div class="title">
+            <span>YOUR SPECIAL DAY</span>
+            <h2>🎂 Happy Birthday 🎂</h2>
+        </div>
+        <div class="date">25 OCTOBER</div>
+        <p>The day the world got a little more beautiful. ❤️</p>
+    </section>
+
+    <section id="story">
+        <div class="title">
+            <span>OUR JOURNEY</span>
+            <h2>Our Story ❤️</h2>
+        </div>
+        <div class="timeline">
+            <div class="story-item">
+                <div class="date-small">31 JANUARY 2026</div>
+                <h3>Our First Meet 🌿</h3>
+                <p>The day our story officially began. A simple meeting that became one of the most important days of my life.</p>
+            </div>
+            <div class="story-item">
+                <div class="date-small">22 MARCH 2026</div>
+                <h3>Her First Saree 💜</h3>
+                <p>Seeing you in that violet saree became one of my favourite memories.</p>
+            </div>
+            <div class="story-item">
+                <div class="date-small">2026</div>
+                <h3>Wet'n Joy 🎢</h3>
+                <p>Another beautiful memory, another day I wanted to remember forever.</p>
+            </div>
+            <div class="story-item">
+                <div class="date-small">2026</div>
+                <h3>Movie Date 🎬</h3>
+                <p>Just you, me and another memory added to our little story.</p>
+            </div>
+            <div class="story-item">
+                <div class="date-small">31 JULY 2026</div>
+                <h3>Six Months Together ❤️</h3>
+                <p>Six months of memories, smiles, fights, love and countless moments.</p>
+            </div>
+            <div class="story-item">
+                <div class="date-small">31 JANUARY 2031 💍</div>
+                <h3>Our Forever ❤️</h3>
+                <p>Five years after the day our story began, a new chapter of our forever begins.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="memories">
+        <div class="title">
+            <span>OUR MEMORIES</span>
+            <h2>Moments I Treasure ❤️</h2>
+        </div>
+        <div class="memory-grid">
+            <div class="memory"><img src="pic1.jpeg" alt="Our first meet"><div class="memory-content"><h3>Our First Meet 🌿</h3><p>The beginning of everything.</p></div></div>
+            <div class="memory"><img src="pic2.jpeg" alt="Snehal in her first saree"><div class="memory-content"><h3>Her First Saree 💜</h3><p>You looked absolutely beautiful.</p></div></div>
+            <div class="memory"><img src="pic3.jpeg" alt="Wet'n Joy memory"><div class="memory-content"><h3>Wet'n Joy 🎢</h3><p>A day full of fun and memories.</p></div></div>
+            <div class="memory"><img src="pic4.jpeg" alt="Our picture date"><div class="memory-content"><h3>Our Picture Date 🎬</h3><p>Another favourite chapter.</p></div></div>
+            <div class="memory"><img src="pic5.jpeg" alt="Six months together"><div class="memory-content"><h3>6 Months Together ❤️</h3><p>Half a year of us.</p></div></div>
+        </div>
+    </section>
+
+    <section id="bestpal" class="bestpal">
+        <div class="title">
+            <span>OUR LITTLE ALBUM</span>
+            <h2>💕 Best Pal</h2>
+        </div>
+        <div class="slideshow">
+            <div class="slide-box">
+                <img id="slideImage" class="slide" src="bestpal1.jpg" alt="Best Pal Memory">
+                <div class="slide-info">
+                    <h3 id="slideTitle">Our Beautiful Memory ❤️</h3>
+                    <p id="slideCaption">One more moment I want to keep forever.</p>
+                </div>
+            </div>
+            <div class="slide-controls">
+                <button type="button" onclick="previousSlide()" aria-label="Previous photo">‹</button>
+                <span class="counter" id="counter">01 / 20</span>
+                <button type="button" onclick="nextSlide()" aria-label="Next photo">›</button>
+                <button type="button" class="play-btn" onclick="toggleSlideshow()" id="playButton">⏸️ Pause</button>
+            </div>
+        </div>
+        <div class="movie-launch"><button type="button" onclick="playOurStory()">🎬 PLAY OUR STORY</button></div>
+    </section>
+
+    <section id="letter">
+        <div class="title">
+            <span>FROM MY HEART</span>
+            <h2>A Letter For You 💌</h2>
+        </div>
+        <div class="letter-box">
+            <h3>Dear Snehal ❤️</h3>
+            <p>I don't know if words will ever be enough to explain how special you are to me.</p>
+            <p>From our first meet to every little memory we have created together, you have become such an important part of my life.</p>
+            <p>We've had beautiful days, silly fights, smiles, emotions and countless moments. And through everything, I still choose you.</p>
+            <p>On your birthday, I just want you to know that I want to keep making memories with you, today, tomorrow and for all the years ahead.</p>
+            <p>Happy Birthday, my favourite person. ❤️</p>
+            <p>Forever with you,<br><b>Kunal ❤️</b></p>
+        </div>
+    </section>
+
+    <section id="heart">
+        <div class="title">
+            <span>FROM THE DEEPEST PART OF MY HEART</span>
+            <h2>One Thing I Want You To Know ❤️</h2>
+        </div>
+        <div class="heart-letter-box">
+            <div class="heart-icon">❤️</div>
+            <h3>Snehal...</h3>
+            <p>कधी कधी आपल्या मध्ये भांडणं होतात, गैरसमज होतात… आणि रागाच्या भरात आपण एकमेकांना अशा गोष्टी बोलतो ज्या खरं तर मनापासून नसतात. ❤️</p>
+            <p>पण माझ्या मनात एक गोष्ट अगदी clear आहे…</p>
+            <p class="highlight">मला माझं पूर्ण आयुष्य तुझ्यासोबत घालवायचं आहे.<br>तुझ्यासोबत लग्न करायचं आहे. 💍</p>
+            <p>तुझ्यासोबत घर बनवायचं आहे, छोट्या छोट्या गोष्टींवर हसायचं आहे, भांडायचं आहे आणि पुन्हा एकमेकांना जवळ घ्यायचं आहे. 🥹❤️</p>
+            <p>मला फक्त आजची <b>“girlfriend” Snehal</b> नकोय…<br>मला उद्याची माझी <b>“wife” Snehal</b> हवी आहे. ❤️💍</p>
+            <p>म्हणून एक promise कर…<br>राग आला तरी मला सोडून जाण्याचा निर्णय घेऊ नकोस.</p>
+            <p>आपण कितीही भांडलो तरी शेवटी बसून बोलूया, समजून घेऊया आणि पुन्हा एकदा <b>“आपण”</b> होऊया. ❤️</p>
+            <p>कारण माझ्या future ची कल्पना केली की…<br>career आहे, घर आहे, family आहे…<br><span class="highlight">पण सगळ्यात आधी तू आहेस. ❤️</span></p>
+            <p class="big-heart-text">मला तुझ्यासोबत म्हातारं व्हायचं आहे, Snehal. 🥹</p>
+            <div class="heart-line"></div>
+            <p class="forever-text">आजपासून शेवटपर्यंत…<br>फक्त तू आणि मी. ❤️♾️</p>
+            <p class="signature">— तुझा Kunal ❤️</p>
+        </div>
+    </section>
+
+    <section id="surprise" class="surprise">
+        <div class="title">
+            <span>ONE LAST SURPRISE</span>
+            <h2>I Have A Little Secret For You ❤️</h2>
+        </div>
+        <div class="surprise-box">
+            <button type="button" class="secret-btn" onclick="showSecret()">Open My Secret ❤️</button>
+            <div class="secret-message" id="secretMessage">You are not just a part of my story...<br><b>You are my favourite part of it. ❤️</b></div>
+            <br><br>
+            <button type="button" class="wedding-btn" onclick="showWedding()">There Is One More Thing... 💍</button>
+            <div class="wedding-surprise" id="weddingSurprise">
+                <div class="wedding-small">ONE DATE I WANT YOU TO REMEMBER</div>
+                <div class="wedding-date">31 JANUARY 2031</div>
+                <h3>The Day I Call You My Wife ❤️</h3>
+                <p>From our first meet on 31 January 2026 to our forever on 31 January 2031... I want every chapter, every memory and every tomorrow to be with you. ❤️</p>
+                <h3>Kunal ❤️ Snehal</h3>
+                <p>Forever starts here. 💍</p>
+                <div class="final-question">
+                    <h2>ONE LAST QUESTION...</h2>
+                    <h3>Snehal, Will You Marry Me? 💍❤️</h3>
+                    <div class="answers">
+                        <button type="button" class="answer-btn" onclick="heartExplosion()">YES ❤️</button>
+                        <button type="button" class="answer-btn" onclick="heartExplosion()">YES, ALWAYS 🥹❤️</button>
+                    </div>
+                    <div class="time-capsule">
+                        <div class="capsule-lock" id="capsuleLock">🔒</div>
+                        <div class="capsule-small">A MESSAGE SEALED FOR OUR FUTURE</div>
+                        <div class="capsule-title">The Time Capsule ❤️</div>
+                        <p class="capsule-text" id="capsuleText">This message is not meant to be opened yet. Some things are worth waiting for.</p>
+                        <div class="capsule-date">31 JANUARY 2031</div>
+                        <button type="button" class="capsule-btn" id="capsuleButton" onclick="openTimeCapsule()">🔒 SEALED UNTIL 31.01.2031</button>
+                        <div class="capsule-unlocked" id="capsuleUnlocked">
+                            <h2>🔓 THE SEAL HAS BEEN BROKEN</h2>
+                            <p>Welcome to the future, Snehal. ❤️</p>
+                            <p>Five years ago, Kunal created this little time capsule for you.</p>
+                            <p>Today, on 31 January 2031, you finally opened it.</p>
+                            <p>Whatever happened between 2026 and today, every memory became a part of our story.</p>
+                            <p>And if you're reading this beside me...</p>
+                            <p><b>Look at me and smile. ❤️</b></p>
+                            <p class="capsule-forever">31.01.2026 → 31.01.2031 → ∞</p>
+                            <p>Kunal ❤️ Snehal</p>
+                        </div>
+                    </div>
+                    <div class="future-launch">
+                        <p>There is something waiting for you...</p>
+                        <button type="button" class="future-btn" onclick="openFutureLetter()">📩 OPEN A MESSAGE FROM THE FUTURE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="photo-overlay" id="photoOverlay" onclick="closeSnehalPhoto(event)" aria-hidden="true">
+        <button class="photo-close" type="button" onclick="closeSnehalPhoto(event)" aria-label="Close photo">×</button>
+        <img src="1000026855.jpg" alt="Snehal">
+    </div>
+
+    <footer>Made with ❤️ by <span>Kunal</span> for Snehal</footer>
+
+    <div class="story-movie" id="storyMovie">
+        <button type="button" class="movie-close" onclick="closeOurStory()" aria-label="Close story">×</button>
+        <div class="movie-content">
+            <div class="movie-scene" id="movieScene">
+                <div class="movie-date" id="movieDate">31 JANUARY 2026</div>
+                <h2 id="movieTitle">It Started With One Simple Meeting... 🌿</h2>
+                <p id="movieText">And somehow, that simple day became the beginning of our story.</p>
+            </div>
+        </div>
+        <div class="movie-progress"><div id="movieProgress"></div></div>
+    </div>
+
+    <div class="future-letter" id="futureLetter">
+        <button type="button" class="future-close" onclick="closeFutureLetter()" aria-label="Close future letter">×</button>
+        <div class="future-content">
+            <div id="futureIntro">
+                <div class="future-date">31 JANUARY 2031</div>
+                <div class="future-subtitle">SOMEWHERE IN OUR FUTURE...</div>
+                <div class="future-letter-box">
+                    <div class="typewriter-text" id="typewriterText"></div>
+                    <div class="future-signature" id="futureSignature">— Kunal ❤️</div>
+                </div>
+            </div>
+            <div class="future-ending" id="futureEnding">
+                <div class="future-big">Snehal... ❤️</div>
+                <div class="future-line"></div>
+                <p>If we ever forget how it all started...</p>
+                <p>Come back to this website.</p>
+                <div class="future-line"></div>
+                <div class="forever">31.01.2026 → ∞</div>
+                <p>Kunal ❤️ Snehal</p>
+                <p>This website was made on your birthday.<br>But the story was made by both of us.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
