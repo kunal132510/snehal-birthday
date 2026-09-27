@@ -1,345 +1,1174 @@
-/* FULL-SCREEN PHOTO */
-function openSnehalPhoto(){
-    document.getElementById("photoOverlay").classList.add("show");
-    document.getElementById("photoOverlay").setAttribute("aria-hidden", "false");
+/* =====================================================
+   SNEHAL BIRTHDAY WEBSITE - COMPLETE SCRIPT.JS
+===================================================== */
+
+
+/* =====================================================
+   FULL SCREEN PHOTO
+===================================================== */
+
+function openSnehalPhoto() {
+
+    const overlay = document.getElementById("photoOverlay");
+
+    if (!overlay) return;
+
+    overlay.classList.add("show");
+    overlay.setAttribute("aria-hidden", "false");
+
     document.body.style.overflow = "hidden";
 }
 
-function closeSnehalPhoto(event){
-    if(
-        event
-        && event.target.id !== "photoOverlay"
-        && !event.target.classList.contains("photo-close")
-    ){
+
+function closeSnehalPhoto(event) {
+
+    if (event && event.target !== event.currentTarget) {
         return;
     }
 
-    document.getElementById("photoOverlay").classList.remove("show");
-    document.getElementById("photoOverlay").setAttribute("aria-hidden", "true");
+    const overlay = document.getElementById("photoOverlay");
+
+    if (!overlay) return;
+
+    overlay.classList.remove("show");
+    overlay.setAttribute("aria-hidden", "true");
+
     document.body.style.overflow = "";
 }
 
-document.addEventListener("keydown", function(event){
-    if(event.key === "Escape"){
+
+document.addEventListener("keydown", function (event) {
+
+    if (event.key === "Escape") {
+
         closeSnehalPhoto();
+        closeOurStory();
+        closeFutureLetter();
+
     }
+
 });
 
-/* SECRET */
-function showSecret(){
-    document.getElementById("secretMessage").classList.add("show");
-    heartExplosion();
-}
 
-/* WEDDING REVEAL */
-function showWedding(){
-    const pin = prompt("Enter the 4-digit PIN to open this surprise:");
+/* =====================================================
+   SECTION NAVIGATION
+===================================================== */
 
-    if(pin !== "1325"){
-        if(pin !== null){
-            alert("Incorrect PIN. Please try again.");
-        }
-        return;
+function showSection(sectionId) {
+
+    const selectedSection =
+        document.getElementById(sectionId);
+
+    if (!selectedSection || !selectedSection.matches("section")) {
+        return false;
     }
 
-    document.getElementById("weddingSurprise").classList.add("show");
+    document.querySelectorAll("body > section").forEach(function (section) {
 
-    setTimeout(function(){
-        document.getElementById("weddingSurprise").scrollIntoView({
-            behavior:"smooth",
-            block:"center"
+        const isHomeBirthday =
+            sectionId === "home" && section.classList.contains("birthday");
+
+        section.classList.toggle(
+            "active",
+            section === selectedSection || isHomeBirthday
+        );
+
+    });
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+    return true;
+}
+
+
+function initializeSectionNavigation() {
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+
+        link.addEventListener("click", function (event) {
+
+            const sectionId = link.getAttribute("href").slice(1);
+
+            if (!showSection(sectionId)) return;
+
+            event.preventDefault();
+            history.pushState(null, "", "#" + sectionId);
+
         });
-    },100);
+
+    });
+
+    const initialId = location.hash.slice(1);
+
+    if (!showSection(initialId)) {
+        showSection("home");
+    }
+
+    window.addEventListener("popstate", function () {
+
+        if (!showSection(location.hash.slice(1))) {
+            showSection("home");
+        }
+
+    });
+}
+
+
+initializeSectionNavigation();
+
+
+/* =====================================================
+   SECRET MESSAGE
+===================================================== */
+
+function showSecret() {
+
+    const secret = document.getElementById("secretMessage");
+
+    if (!secret) return;
+
+    secret.classList.add("show");
 
     heartExplosion();
 }
 
-/* BEST PAL SLIDESHOW */
-const photos = [
-    {image:"bestpal1.jpg",title:"Our Beautiful Memory ❤️",caption:"One more moment I want to keep forever."},
-    {image:"bestpal2.jpg",title:"My Favourite Person 🥹",caption:"Every picture with you means something special."},
-    {image:"bestpal3.jpg",title:"Just Us ❤️",caption:"Simple moments become special with you."},
-    {image:"bestpal4.jpg",title:"Another Beautiful Day 🌸",caption:"A memory worth keeping forever."},
-    {image:"bestpal5.jpg",title:"My Best Pal 💕",caption:"More memories, more reasons to smile."},
-    {image:"bestpal6.jpg",title:"Together ❤️",caption:"I love these little moments with you."},
-    {image:"bestpal7.jpg",title:"Beautiful Memory ✨",caption:"One of the many moments I treasure."},
-    {image:"bestpal8.jpg",title:"Us 🥹❤️",caption:"My favourite place is beside you."},
-    {image:"bestpal9.jpg",title:"Another Chapter 📖",caption:"Our story keeps getting better."},
-    {image:"bestpal10.jpg",title:"Forever Memories ❤️",caption:"A picture that deserves a place in our story."},
-    {image:"bestpal11.jpg",title:"My Happiness 💕",caption:"You make ordinary days special."},
-    {image:"bestpal12.jpg",title:"Together Again ❤️",caption:"Another memory for our little album."},
-    {image:"bestpal13.jpg",title:"Beautiful You 🌸",caption:"Still my favourite person."},
-    {image:"bestpal14.jpg",title:"Our Moment ✨",caption:"Something I never want to forget."},
-    {image:"bestpal15.jpg",title:"Best Pal ❤️",caption:"Partner in memories and everything else."},
-    {image:"bestpal16.jpg",title:"A Special Memory 💕",caption:"Another page in our story."},
-    {image:"bestpal17.jpg",title:"Just You ❤️",caption:"You make every memory brighter."},
-    {image:"bestpal18.jpg",title:"Our Story 🥹",caption:"Still so many memories to make."},
-    {image:"bestpal19.jpg",title:"Forever Favourite ❤️",caption:"One of my favourite pictures of us."},
-    {image:"bestpal20.jpg",title:"Always Us 💍❤️",caption:"And this is only the beginning."}
+
+/* =====================================================
+   WEDDING SURPRISE
+===================================================== */
+
+function showWedding() {
+
+    const pin = prompt(
+        "Enter our special PIN ❤️"
+    );
+
+    if (pin === null) return;
+
+
+    if (pin === "1325") {
+
+        const wedding =
+            document.getElementById("weddingSurprise");
+
+        if (!wedding) return;
+
+        wedding.classList.add("show");
+
+        wedding.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+        heartExplosion();
+
+    } else {
+
+        alert(
+            "Wrong PIN ❤️ Try again."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   HEART EXPLOSION
+===================================================== */
+
+function heartExplosion() {
+
+    for (let i = 0; i < 60; i++) {
+
+        const heart =
+            document.createElement("div");
+
+        heart.innerHTML = "❤️";
+
+        heart.style.position = "fixed";
+        heart.style.left = "50%";
+        heart.style.top = "50%";
+
+        heart.style.fontSize =
+            (15 + Math.random() * 25) + "px";
+
+        heart.style.pointerEvents = "none";
+
+        heart.style.zIndex = "10000";
+
+        const x =
+            (Math.random() - 0.5) * 700;
+
+        const y =
+            (Math.random() - 0.5) * 700;
+
+        heart.style.setProperty(
+            "--x",
+            x + "px"
+        );
+
+        heart.style.setProperty(
+            "--y",
+            y + "px"
+        );
+
+        heart.style.animation =
+            "heartFly 2s ease-out forwards";
+
+        document.body.appendChild(heart);
+
+
+        setTimeout(function () {
+
+            heart.remove();
+
+        }, 2000);
+
+    }
+
+}
+
+
+/* =====================================================
+   BEST PAL SLIDESHOW
+===================================================== */
+
+const bestPalPhotos = [];
+
+for (let i = 1; i <= 20; i++) {
+
+    bestPalPhotos.push(
+        "bestpal" + i + ".jpg"
+    );
+
+}
+
+
+const bestPalTitles = [
+
+    "Our Beautiful Memory ❤️",
+    "One More Memory 🥹",
+    "You & Me ❤️",
+    "My Favourite Person 💕",
+    "Together ❤️",
+    "Beautiful You 🌸",
+    "Our Little World 🌎",
+    "Always You ❤️",
+    "My Best Pal 💕",
+    "Another Beautiful Day 🥰",
+    "Our Story ❤️",
+    "Forever Memories ♾️",
+    "My Happiness ❤️",
+    "Us 🥹",
+    "A Moment To Remember 💕",
+    "Always Together ❤️",
+    "My Favourite Smile 😊",
+    "Our Little Memories 🌸",
+    "You Make Me Happy ❤️",
+    "Forever Us ♾️❤️"
+
 ];
+
+
+const bestPalCaptions = [
+
+    "One more moment I want to keep forever.",
+    "Another beautiful memory with you.",
+    "Just you and me. ❤️",
+    "My favourite person in the world.",
+    "Everything feels better with you.",
+    "You looked absolutely beautiful.",
+    "Our little world together.",
+    "No matter what, always you.",
+    "More than a girlfriend, my best pal.",
+    "A day worth remembering.",
+    "Another chapter of our story.",
+    "Memories I want forever.",
+    "You are my happiness.",
+    "Just us. ❤️",
+    "A moment I will never forget.",
+    "Together is my favourite place.",
+    "That smile. ❤️",
+    "Small moments, big memories.",
+    "You make my world better.",
+    "Forever starts with us."
+
+];
+
 
 let currentSlide = 0;
-let playing = true;
-let slideTimer;
+let slideshowTimer = null;
+let slideshowPlaying = true;
 
-function updateSlide(){
-    const image = document.getElementById("slideImage");
-    const title = document.getElementById("slideTitle");
-    const caption = document.getElementById("slideCaption");
-    const counter = document.getElementById("counter");
 
-    image.src = photos[currentSlide].image;
-    title.textContent = photos[currentSlide].title;
-    caption.textContent = photos[currentSlide].caption;
-    counter.textContent =
-        String(currentSlide + 1).padStart(2,"0")
-        + " / "
-        + String(photos.length).padStart(2,"0");
-}
+function updateSlide() {
 
-function nextSlide(){
-    currentSlide++;
-    if(currentSlide >= photos.length){
-        currentSlide = 0;
-    }
-    updateSlide();
-}
+    const image =
+        document.getElementById("slideImage");
 
-function previousSlide(){
-    currentSlide--;
-    if(currentSlide < 0){
-        currentSlide = photos.length - 1;
-    }
-    updateSlide();
-}
+    const title =
+        document.getElementById("slideTitle");
 
-function startSlideshow(){
-    clearInterval(slideTimer);
-    slideTimer = setInterval(function(){
-        if(playing){
-            nextSlide();
+    const caption =
+        document.getElementById("slideCaption");
+
+    const counter =
+        document.getElementById("counter");
+
+
+    if (!image) return;
+
+
+    image.style.opacity = "0";
+
+
+    setTimeout(function () {
+
+        image.src =
+            bestPalPhotos[currentSlide];
+
+        image.alt =
+            bestPalTitles[currentSlide];
+
+
+        if (title) {
+
+            title.textContent =
+                bestPalTitles[currentSlide];
+
         }
-    },4000);
+
+
+        if (caption) {
+
+            caption.textContent =
+                bestPalCaptions[currentSlide];
+
+        }
+
+
+        if (counter) {
+
+            counter.textContent =
+                String(currentSlide + 1).padStart(2, "0")
+                + " / 20";
+
+        }
+
+
+        image.style.opacity = "1";
+
+    }, 200);
+
 }
 
-function toggleSlideshow(){
-    playing = !playing;
-    document.getElementById("playButton").textContent = playing ? "⏸️ Pause" : "▶️ Play";
+
+function nextSlide() {
+
+    currentSlide++;
+
+    if (currentSlide >= bestPalPhotos.length) {
+
+        currentSlide = 0;
+
+    }
+
+    updateSlide();
+
 }
+
+
+function previousSlide() {
+
+    currentSlide--;
+
+    if (currentSlide < 0) {
+
+        currentSlide =
+            bestPalPhotos.length - 1;
+
+    }
+
+    updateSlide();
+
+}
+
+
+function startSlideshow() {
+
+    clearInterval(slideshowTimer);
+
+
+    slideshowTimer =
+        setInterval(function () {
+
+            nextSlide();
+
+        }, 4000);
+
+
+    slideshowPlaying = true;
+
+
+    const button =
+        document.getElementById("playButton");
+
+    if (button) {
+
+        button.textContent =
+            "⏸️ Pause";
+
+    }
+
+}
+
+
+function toggleSlideshow() {
+
+    const button =
+        document.getElementById("playButton");
+
+
+    if (slideshowPlaying) {
+
+        clearInterval(slideshowTimer);
+
+        slideshowPlaying = false;
+
+
+        if (button) {
+
+            button.textContent =
+                "▶️ Play";
+
+        }
+
+    } else {
+
+        startSlideshow();
+
+    }
+
+}
+
 
 updateSlide();
+
 startSlideshow();
 
-/* HEART EXPLOSION */
-function heartExplosion(){
-    for(let i = 0; i < 60; i++){
-        const heart = document.createElement("div");
-        heart.className = "heart";
-        heart.innerHTML = Math.random() > .5 ? "❤️" : "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = (50 + Math.random() * 30) + "vh";
-        heart.style.fontSize = (15 + Math.random() * 25) + "px";
-        heart.style.animationDuration = (1.5 + Math.random() * 2) + "s";
-        document.body.appendChild(heart);
-        setTimeout(function(){heart.remove()},3500);
-    }
-}
 
-/* NAVIGATION */
-function showPage(pageId){
-    document.querySelectorAll("body > section").forEach(function(section){
-        section.hidden = section.id !== pageId && !(pageId === "home" && section.classList.contains("birthday"));
-    });
-}
+/* =====================================================
+   OUR STORY MOVIE
+===================================================== */
 
-const navLinks = document.querySelectorAll("nav a");
-
-navLinks.forEach(function(link){
-    link.addEventListener("click",function(event){
-        event.preventDefault();
-        const pageId = link.getAttribute("href").slice(1);
-        showPage(pageId);
-        history.pushState(null,"","#" + pageId);
-        window.scrollTo({top:0,behavior:"smooth"});
-    });
-});
-
-window.addEventListener("popstate",function(){
-    const pageId = Array.from(navLinks).some(function(link){
-        return link.getAttribute("href") === location.hash;
-    }) ? location.hash.slice(1) : "home";
-    showPage(pageId);
-});
-
-const initialPage = Array.from(navLinks).some(function(link){
-    return link.getAttribute("href") === location.hash;
-}) ? location.hash.slice(1) : "home";
-
-showPage(initialPage);
-
-/* OUR STORY - CINEMATIC MOVIE */
 const movieScenes = [
-    {date:"31 JANUARY 2026",title:"It Started With One Simple Meeting... 🌿",text:"And somehow, that simple day became the beginning of our story."},
-    {date:"22 MARCH 2026",title:"A Memory I'll Never Forget... 💜",text:"You in that violet saree became one of my favourite memories."},
-    {date:"THE LITTLE MOMENTS",title:"The Laughs. The Fights. The Love. ❤️",text:"Every small moment slowly became a beautiful part of us."},
-    {date:"31 JULY 2026",title:"Six Months Of Us... 🥹",text:"Six months of memories, emotions, smiles and choosing each other."},
-    {date:"AND THEN...",title:"Our Story Wasn't Finished Yet... ❤️",text:"Because I still have so many memories I want to create with you."},
-    {date:"31 JANUARY 2031 💍",title:"The Chapter I Want To Write Forever",text:"From our first meet to the day I call you my wife..."},
-    {date:"FOREVER",title:"Happy Birthday, My Love ❤️",text:"I don't know what the future holds, but I know who I want beside me. — Kunal ❤️"}
+
+    {
+        image: "pic1.jpeg",
+        date: "31 JANUARY 2026",
+        title: "Our First Meet 🌿",
+        text: "The day our story officially began. A simple meeting that became the beginning of everything. ❤️"
+    },
+
+    {
+        image: "pic2.jpeg",
+        date: "22 MARCH 2026",
+        title: "Her First Saree 💜",
+        text: "You in that violet saree became one of my favourite memories. You looked absolutely beautiful. ❤️"
+    },
+
+    {
+        image: "pic3.jpeg",
+        date: "2026",
+        title: "Wet'n Joy 🎢",
+        text: "A day full of fun, smiles and memories that I want to keep forever. 🥹❤️"
+    },
+
+    {
+        image: "pic4.jpeg",
+        date: "2026",
+        title: "Our Picture Date 🎬",
+        text: "Just you, me and another beautiful chapter added to our little story. ❤️"
+    },
+
+    {
+        image: "pic5.jpeg",
+        date: "31 JULY 2026",
+        title: "Six Months Together ❤️",
+        text: "Six months of memories, smiles, fights, love and countless moments. And this is only the beginning. ♾️❤️"
+    }
+
 ];
 
-let movieIndex = 0;
-let movieTimer;
-let progressTimer;
 
-function playOurStory(){
+let movieIndex = 0;
+
+let movieTimer = null;
+
+let progressTimer = null;
+
+let movieTransitionTimer = null;
+
+
+/* PLAY */
+
+function playOurStory() {
+
+    const movie =
+        document.getElementById("storyMovie");
+
+
+    if (!movie) {
+
+        console.log(
+            "ERROR: storyMovie not found"
+        );
+
+        return;
+
+    }
+
+
     movieIndex = 0;
-    document.getElementById("storyMovie").classList.add("show");
-    document.body.style.overflow = "hidden";
+
+
+    clearTimeout(movieTimer);
+
+    clearTimeout(movieTransitionTimer);
+
+    clearInterval(progressTimer);
+
+
+    movie.classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
     showMovieScene();
+
 }
 
-function showMovieScene(){
+
+/* SHOW SCENE */
+
+function showMovieScene() {
+
+    clearTimeout(movieTransitionTimer);
+
     clearTimeout(movieTimer);
-    const scene = movieScenes[movieIndex];
-    const movieScene = document.getElementById("movieScene");
+
+
+    const scene =
+        movieScenes[movieIndex];
+
+
+    const movieImage =
+        document.getElementById("movieImage");
+
+    const movieScene =
+        document.getElementById("movieScene");
+
+    const movieDate =
+        document.getElementById("movieDate");
+
+    const movieTitle =
+        document.getElementById("movieTitle");
+
+    const movieText =
+        document.getElementById("movieText");
+
+
+    if (
+        !movieImage ||
+        !movieScene ||
+        !movieDate ||
+        !movieTitle ||
+        !movieText
+    ) {
+
+        console.log(
+            "ERROR: Story movie elements missing"
+        );
+
+        return;
+
+    }
+
+
     movieScene.classList.add("fade");
 
-    setTimeout(function(){
-        document.getElementById("movieDate").textContent = scene.date;
-        document.getElementById("movieTitle").textContent = scene.title;
-        document.getElementById("movieText").textContent = scene.text;
-        movieScene.classList.remove("fade");
-    },800);
+    movieImage.style.opacity = "0";
+
+
+    movieTransitionTimer =
+        setTimeout(function () {
+
+            movieImage.src =
+                scene.image;
+
+            movieImage.alt =
+                scene.title;
+
+
+            movieDate.textContent =
+                scene.date;
+
+
+            movieTitle.textContent =
+                scene.title;
+
+
+            movieText.textContent =
+                scene.text;
+
+
+            movieImage.style.opacity =
+                "1";
+
+
+            movieScene.classList.remove(
+                "fade"
+            );
+
+        }, 500);
+
 
     startMovieProgress();
-    movieTimer = setTimeout(function(){
-        movieIndex++;
-        if(movieIndex >= movieScenes.length){
-            setTimeout(function(){closeOurStory()},1000);
-            return;
-        }
-        showMovieScene();
-    },5000);
+
+
+    movieTimer =
+        setTimeout(function () {
+
+            movieIndex++;
+
+
+            if (
+                movieIndex >=
+                movieScenes.length
+            ) {
+
+                setTimeout(function () {
+
+                    closeOurStory();
+
+                }, 800);
+
+
+                return;
+
+            }
+
+
+            showMovieScene();
+
+        }, 5000);
+
 }
 
-function startMovieProgress(){
+
+/* PROGRESS */
+
+function startMovieProgress() {
+
     clearInterval(progressTimer);
-    const progress = document.getElementById("movieProgress");
+
+
+    const progress =
+        document.getElementById(
+            "movieProgress"
+        );
+
+
+    if (!progress) return;
+
+
     progress.style.width = "0%";
+
+
     let width = 0;
-    progressTimer = setInterval(function(){
-        width += 2;
-        progress.style.width = width + "%";
-        if(width >= 100){
-            clearInterval(progressTimer);
-        }
-    },100);
+
+
+    progressTimer =
+        setInterval(function () {
+
+            width += 2;
+
+
+            progress.style.width =
+                width + "%";
+
+
+            if (width >= 100) {
+
+                clearInterval(
+                    progressTimer
+                );
+
+            }
+
+        }, 100);
+
 }
 
-function closeOurStory(){
+
+/* CLOSE */
+
+function closeOurStory() {
+
     clearTimeout(movieTimer);
-    clearInterval(progressTimer);
-    document.getElementById("storyMovie").classList.remove("show");
-    document.body.style.overflow = "";
+
+    clearTimeout(
+        movieTransitionTimer
+    );
+
+    clearInterval(
+        progressTimer
+    );
+
+
+    const movie =
+        document.getElementById(
+            "storyMovie"
+        );
+
+
+    if (movie) {
+
+        movie.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    document.body.style.overflow =
+        "";
+
+
+    const progress =
+        document.getElementById(
+            "movieProgress"
+        );
+
+
+    if (progress) {
+
+        progress.style.width =
+            "0%";
+
+    }
+
 }
 
-/* LETTER FROM OUR FUTURE */
-const futureLetterText = `Dear Snehal,
 
-If you're reading this, we made it. ❤️
+/* =====================================================
+   FUTURE LETTER
+===================================================== */
 
-Five years ago, on 31 January 2026, two people met without knowing how many memories were waiting for them.
+const futureLetterText =
 
-Today, I still remember that first day.
+`Dear Snehal,
 
-I remember your smile.
-Your violet saree.
-Our silly fights.
-Our little adventures.
-Every moment that brought us here.
+If you are reading this,
+it means we have travelled a very long way together.
 
-And now, when I look at you, I don't see just the girl I met in 2026...
+Do you remember the day we first met?
 
-I see my wife. 💍❤️`;
+31 January 2026.
 
-let typingTimer;
+At that time,
+we had no idea how many memories,
+smiles,
+fights,
+and beautiful moments were waiting for us.
 
-function openFutureLetter(){
-    document.getElementById("futureLetter").classList.add("show");
-    document.body.style.overflow = "hidden";
-    document.getElementById("futureIntro").style.display = "block";
-    document.getElementById("futureEnding").classList.remove("show");
-    document.getElementById("futureSignature").classList.remove("show");
+Today,
+five years later,
+I just want to tell you one thing...
 
-    const textBox = document.getElementById("typewriterText");
-    textBox.textContent = "";
-    clearInterval(typingTimer);
+Thank you for staying.
+
+Thank you for choosing us.
+
+Thank you for being a part of my life.
+
+No matter how much time passes,
+I hope you still look at me
+the same way you did when our story started.
+
+And if you are sitting beside me while reading this...
+
+Please hold my hand.
+
+Because this was never just a website.
+
+This was a small message
+from the Kunal of 2026
+to the Kunal and Snehal of 2031.
+
+I love you.
+
+Always.
+
+Forever.
+
+— Kunal ❤️`;
+
+
+let futureTypingTimer = null;
+
+
+function openFutureLetter() {
+
+    const future =
+        document.getElementById(
+            "futureLetter"
+        );
+
+
+    if (!future) return;
+
+
+    future.classList.add("show");
+
+
+    document.body.style.overflow =
+        "hidden";
+
+
+    const text =
+        document.getElementById(
+            "typewriterText"
+        );
+
+
+    const signature =
+        document.getElementById(
+            "futureSignature"
+        );
+
+
+    const ending =
+        document.getElementById(
+            "futureEnding"
+        );
+
+
+    if (text) {
+
+        text.textContent = "";
+
+    }
+
+
+    if (signature) {
+
+        signature.style.opacity = "0";
+
+    }
+
+
+    if (ending) {
+
+        ending.style.opacity = "0";
+
+    }
+
+
+    clearInterval(
+        futureTypingTimer
+    );
+
+
     let index = 0;
 
-    typingTimer = setInterval(function(){
-        textBox.textContent += futureLetterText.charAt(index);
-        index++;
-        if(index >= futureLetterText.length){
-            clearInterval(typingTimer);
-            setTimeout(function(){
-                document.getElementById("futureSignature").classList.add("show");
-                setTimeout(function(){showFutureEnding()},3500);
-            },700);
+
+    futureTypingTimer =
+        setInterval(function () {
+
+            if (!text) {
+
+                clearInterval(
+                    futureTypingTimer
+                );
+
+                return;
+
+            }
+
+
+            text.textContent +=
+                futureLetterText.charAt(
+                    index
+                );
+
+
+            index++;
+
+
+            if (
+                index >=
+                futureLetterText.length
+            ) {
+
+                clearInterval(
+                    futureTypingTimer
+                );
+
+
+                if (signature) {
+
+                    signature.style.opacity =
+                        "1";
+
+                }
+
+
+                if (ending) {
+
+                    ending.style.opacity =
+                        "1";
+
+                }
+
+            }
+
+        }, 35);
+
+}
+
+
+function closeFutureLetter() {
+
+    clearInterval(
+        futureTypingTimer
+    );
+
+
+    const future =
+        document.getElementById(
+            "futureLetter"
+        );
+
+
+    if (future) {
+
+        future.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+/* =====================================================
+   TIME CAPSULE
+===================================================== */
+
+function openTimeCapsule() {
+
+    const unlockDate =
+        new Date(
+            "2031-01-31T00:00:00"
+        );
+
+
+    const now =
+        new Date();
+
+
+    const button =
+        document.getElementById(
+            "capsuleButton"
+        );
+
+
+    const unlocked =
+        document.getElementById(
+            "capsuleUnlocked"
+        );
+
+
+    const lock =
+        document.getElementById(
+            "capsuleLock"
+        );
+
+
+    if (
+        now >=
+        unlockDate
+    ) {
+
+        if (button) {
+
+            button.style.display =
+                "none";
+
         }
-    },28);
-}
 
-function showFutureEnding(){
-    document.getElementById("futureIntro").style.display = "none";
-    document.getElementById("futureEnding").classList.add("show");
-    heartExplosion();
-}
 
-function closeFutureLetter(){
-    clearInterval(typingTimer);
-    document.getElementById("futureLetter").classList.remove("show");
-    document.body.style.overflow = "";
-}
+        if (lock) {
 
-/* TIME CAPSULE: unlock date 31 January 2031 */
-function openTimeCapsule(){
-    const unlockDate = new Date("2031-01-31T00:00:00");
-    const today = new Date();
-    const alreadyUnlocked = localStorage.getItem("snehalTimeCapsuleUnlocked");
+            lock.textContent =
+                "🔓";
 
-    if(alreadyUnlocked === "true"){
-        revealTimeCapsule();
-        return;
-    }
-
-    if(today >= unlockDate){
-        localStorage.setItem("snehalTimeCapsuleUnlocked","true");
-        revealTimeCapsule();
-    }else{
-        alert("Not yet, Snehal. ❤️\n\nThis message is waiting for you on\n31 January 2031. 🔒");
-    }
-}
-
-function revealTimeCapsule(){
-    document.getElementById("capsuleLock").textContent = "🔓";
-    document.getElementById("capsuleText").textContent = "Five years of waiting. One moment worth remembering.";
-    document.getElementById("capsuleButton").style.display = "none";
-    document.getElementById("capsuleUnlocked").classList.add("show");
-    heartExplosion();
-}
-
-function checkTimeCapsule(){
-    const unlockDate = new Date("2031-01-31T00:00:00");
-    const today = new Date();
-    const alreadyUnlocked = localStorage.getItem("snehalTimeCapsuleUnlocked");
-
-    if(alreadyUnlocked === "true" || today >= unlockDate){
-        if(today >= unlockDate){
-            localStorage.setItem("snehalTimeCapsuleUnlocked","true");
         }
-        revealTimeCapsule();
+
+
+        if (unlocked) {
+
+            unlocked.classList.add(
+                "show"
+            );
+
+        }
+
+
+        localStorage.setItem(
+            "snehalTimeCapsule",
+            "unlocked"
+        );
+
+
+        heartExplosion();
+
+
+    } else {
+
+        alert(
+            "🔒 This message is sealed until 31 January 2031 ❤️"
+        );
+
     }
+
 }
+
+
+/* =====================================================
+   CHECK TIME CAPSULE ON LOAD
+===================================================== */
+
+function checkTimeCapsule() {
+
+    const unlocked =
+        localStorage.getItem(
+            "snehalTimeCapsule"
+        );
+
+
+    const unlockDate =
+        new Date(
+            "2031-01-31T00:00:00"
+        );
+
+
+    const now =
+        new Date();
+
+
+    if (
+        unlocked === "unlocked" ||
+        now >= unlockDate
+    ) {
+
+        const button =
+            document.getElementById(
+                "capsuleButton"
+            );
+
+
+        const lock =
+            document.getElementById(
+                "capsuleLock"
+            );
+
+
+        const content =
+            document.getElementById(
+                "capsuleUnlocked"
+            );
+
+
+        if (button) {
+
+            button.style.display =
+                "none";
+
+        }
+
+
+        if (lock) {
+
+            lock.textContent =
+                "🔓";
+
+        }
+
+
+        if (content) {
+
+            content.classList.add(
+                "show"
+            );
+
+        }
+
+    }
+
+}
+
 
 checkTimeCapsule();
+
+
+/* =====================================================
+   IMAGE ERROR CHECK
+===================================================== */
+
+document.addEventListener(
+    "error",
+    function (event) {
+
+        if (
+            event.target.tagName ===
+            "IMG"
+        ) {
+
+            console.log(
+                "Image not found:",
+                event.target.src
+            );
+
+        }
+
+    },
+    true
+);
+
+
+/* =====================================================
+   PAGE LOADED
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        console.log(
+            "Snehal Birthday Website Loaded ❤️"
+        );
+
+    }
+);
