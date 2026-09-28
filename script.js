@@ -242,7 +242,7 @@ const bestPalPhotos = [];
 for (let i = 1; i <= 20; i++) {
 
     bestPalPhotos.push(
-        "bestpal" + i + ".jpg"
+        "bestpal" + i + ".jpeg"
     );
 
 }
