@@ -1159,6 +1159,32 @@ document.addEventListener(
 
 
 /* =====================================================
+   BACKGROUND MUSIC
+===================================================== */
+
+function startBackgroundMusic() {
+
+    const music = document.getElementById("backgroundMusic");
+
+    if (!music || !music.paused) return;
+
+    music.play().catch(function () {
+        // Some browsers require a user gesture before playing audio.
+    });
+
+}
+
+
+startBackgroundMusic();
+
+["pointerdown", "keydown"].forEach(function (eventName) {
+
+    document.addEventListener(eventName, startBackgroundMusic, { once: true });
+
+});
+
+
+/* =====================================================
    PAGE LOADED
 ===================================================== */
 
