@@ -1162,26 +1162,17 @@ document.addEventListener(
    BACKGROUND MUSIC
 ===================================================== */
 
-function startBackgroundMusic() {
+const backgroundMusic = document.getElementById("backgroundMusic");
 
-    const music = document.getElementById("backgroundMusic");
+if (backgroundMusic) {
+    const playback = backgroundMusic.play();
 
-    if (!music || !music.paused) return;
-
-    music.play().catch(function () {
-        // Some browsers require a user gesture before playing audio.
-    });
-
+    if (playback && typeof playback.catch === "function") {
+        playback.catch(function () {
+            // Browsers may block autoplay until the visitor interacts with the page.
+        });
+    }
 }
-
-
-startBackgroundMusic();
-
-["pointerdown", "keydown"].forEach(function (eventName) {
-
-    document.addEventListener(eventName, startBackgroundMusic, { once: true });
-
-});
 
 
 /* =====================================================
